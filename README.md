@@ -36,6 +36,11 @@ Este proyecto es un sistema de gestión de inventario y productos, implementado 
 - Base de datos de Inventario: Postgres en puerto 5431
 - Base de datos de Productos: Postgres en puerto 5432
 
+##Endpoints 
+
+Los endpoints y sus distintos metodos se encuentran en el archivo de la colletion de postman
+Sistema pos api.postman_collection.json
+
 ## Descripción de la Arquitectura
 
 El sistema está compuesto por dos microservicios principales:
