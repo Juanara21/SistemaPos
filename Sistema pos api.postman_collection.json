@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "f7f20281-78cb-4bcf-baf5-244386a397e7",
+		"name": "Sistema pos api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "39421651"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/products"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos for ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8081/api/products/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Camiseta roja\",\r\n  \"description\": \"Camiseta 100% algodón, talla M\",\r\n  \"price\": 15.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/api/products"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventario",
+			"item": [
+				{
+					"name": "inventarear productos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productoId\": 5,\r\n  \"quantity\": 100 \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8083/api/inventory/registrar"
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar compra",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productId\": 5,\r\n  \"cantidad\": 3\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8083/api/inventory/compra"
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar inventario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 200 \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8083/api/inventory/actualizar/5"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
