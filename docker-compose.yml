@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  ### Base de datos para Inventario
+  db-inventory:
+    container_name: db-inventory
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bd_inventario
+      POSTGRES_USER: juanara21
+      POSTGRES_PASSWORD: juanara21
+    ports:
+      - "5431:5432"
+    networks:
+      - backend
+
+  ### Base de datos para Productos
+  db-products:
+    container_name: db-products
+    image: postgres:15.2
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bd_productos
+      POSTGRES_USER: juanara21
+      POSTGRES_PASSWORD: juanara21
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  ### Microservicio de Productos
+  productos:
+    build:
+      context: ./microserviceProduct
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-products:5432/bd_productos
+      - SPRING_DATASOURCE_USERNAME=juanara21
+      - SPRING_DATASOURCE_PASSWORD=juanara21
+      - API_KEY_PRODUCTOS=aplicandoparasenior
+    depends_on:
+      - db-products
+    networks:
+      - backend
+
+  ### Microservicio de Inventario
+  inventario:
+    build:
+      context: ./microserviceInventory
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-inventory:5432/bd_inventario
+      - SPRING_DATASOURCE_USERNAME=juanara21
+      - SPRING_DATASOURCE_PASSWORD=juanara21
+      - SERVICE_PRODUCT_SERVICE_URL=http://productos:8081/api/products
+      - API_KEY_PRODUCTOS=aplicandoparasenior
+      
+    depends_on:
+      - db-inventory
+      - productos
+    networks:
+      - backend
+
+networks:
+  backend:
